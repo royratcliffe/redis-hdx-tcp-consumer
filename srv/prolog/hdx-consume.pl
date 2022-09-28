@@ -29,10 +29,10 @@ command(Data, Context) :-
     check_out_stream_pair(Address, StreamPair),
     hdx_command(StreamPair, Command),
     check_in_stream_pair(Address, StreamPair),
-    xadd(r, Key, _, _{message:Context.message,
-                      key:Context.key,
-                      group:Context.group,
-                      consumer:Context.consumer}).
+    xadd(Context.redis, Key, _, _{message:Context.message,
+                                  key:Context.key,
+                                  group:Context.group,
+                                  consumer:Context.consumer}).
 command(_, _).
 
 query(Data, Context) :-
@@ -43,9 +43,9 @@ query(Data, Context) :-
     check_out_stream_pair(Address, StreamPair),
     hdx_query(StreamPair, Query, Reply),
     check_in_stream_pair(Address, StreamPair),
-    xadd(r, Key, _, _{reply:Reply,
-                      key:Context.key,
-                      message:Context.message,
-                      group:Context.group,
-                      consumer:Context.consumer}).
+    xadd(Context.redis, Key, _, _{reply:Reply,
+                                  key:Context.key,
+                                  message:Context.message,
+                                  group:Context.group,
+                                  consumer:Context.consumer}).
 query(_, _).
