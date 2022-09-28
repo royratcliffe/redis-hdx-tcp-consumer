@@ -30,8 +30,8 @@ command(Data, Context) :-
     check_out_stream_pair(Address, StreamPair),
     hdx_command(StreamPair, Command),
     check_in_stream_pair(Address, StreamPair),
-    xadd(Context.redis, Key, _, _{message:Context.message,
-                                  key:Context.key,
+    xadd(Context.redis, Key, _, _{key:Context.key,
+                                  message:Context.message,
                                   group:Context.group,
                                   consumer:Context.consumer}).
 command(_, _).
