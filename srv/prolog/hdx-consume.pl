@@ -9,6 +9,18 @@ consume(Key, Data, Context) :-
     !,
     query(Data, Context.put(key, Key)).
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+The cut is significant for the behaviour of the consumer group. It
+delineates between retrying and discarding the incoming command or
+query. Failure before the cut discards the incoming event. Failure
+*after* the cut retries the event, by this or some other consumer within
+the same group.
+
+Notice that the consumer can access the same connection alias.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
 command(Data, Context) :-
     get_dict(command, Data, Command),
     get_dict(key, Data, Key),

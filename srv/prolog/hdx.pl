@@ -9,6 +9,15 @@ hdx_query(StreamPair, Query, Reply) :-
     hdx(StreamPair, Query, Codes, TimeOut),
     string_codes(Reply, Codes).
 
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+No need to distinguish between command and query at the lower layers of
+duplex communication. The upper-level stream determines the mode: either
+both halves of the half-duplex cycle, write then read for the query
+stream; else write only for the command stream.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
 hdx(StreamPair, Term, Codes, TimeOut) :-
     stream_pair(StreamPair, In, Out),
     hdx(Out, Term),
