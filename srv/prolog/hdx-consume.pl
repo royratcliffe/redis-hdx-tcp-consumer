@@ -17,7 +17,8 @@ query. Failure before the cut discards the incoming event. Failure
 *after* the cut retries the event, by this or some other consumer within
 the same group.
 
-Notice that the consumer can access the same connection alias.
+Notice that the consumer can access the same connection alias. The
+context carries the Redis connection ready for re-use.
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
